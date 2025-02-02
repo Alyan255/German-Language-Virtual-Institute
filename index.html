@@ -26,7 +26,17 @@
             color: white;
             border-bottom: 3px solid #dd0000;
         }
-
+        form#contactForm button {
+background: #dd0000;
+    color: white;
+    padding: 1.2rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+    font-size: 1.1rem;
+}
         .hero h1 {
             font-size: 3.2rem;
             margin-bottom: 1rem;
@@ -431,14 +441,14 @@
                 <p><i class="fas fa-brain"></i> Practical Application Focus</p>
             </div>
             <div class="instructor-card">
-                <h3>Abdul wasay Bhatti</h3>
+                <h3>Wassy</h3>
                 <p><i class="fas fa-certificate"></i> B2 Certified</p>
                 <p><i class="fas fa-book-open"></i> Grammar Specialist</p>
                 <p><i class="fas fa-brain"></i> Practical Application Focus</p>
             </div>
             <div class="instructor-card">
-                <h3>Urwa Malik </h3>
-                <p><i class="fas fa-certificate"></i> C1 Certification in Progress </p>
+                <h3>Urwa </h3>
+                <p><i class="fas fa-certificate"></i> C1 Certified German Instructor</p>
                 <p><i class="fas fa-chalkboard"></i> 2+ Years Teaching Experience</p>
                 <p><i class="fas fa-comments"></i> Conversational Expert</p>
             </div>
@@ -449,19 +459,39 @@
     <div class="container" id="contact">
         <div class="contact-form">
             <h2 class="section-title">Enrollment Form</h2>
-            <form onsubmit="handleSubmit(event)">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email Address" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <select required>
-                    <option value="">Select Course</option>
-                    <option value="A1">A1 Course (20,000 PKR)</option>
-                    <option value="A2">A2 Course (20,000 PKR)</option>
-                    <option value="B1">B1 Course (35,000 PKR)</option>
-                </select>
-                <textarea placeholder="Why do you want to learn German?" rows="4" required></textarea>
-                <button type="submit" class="btn">Submit Application</button>
-            </form>
+            <form id="contactForm">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+    <select name="course" required>
+        <option value="">Select Course</option>
+        <option value="A1">A1 Course (20,000 PKR)</option>
+        <option value="A2">A2 Course (20,000 PKR)</option>
+        <option value="B1">B1 Course (35,000 PKR)</option>
+    </select>
+    <textarea name="message" placeholder="Why do you want to learn German?" rows="4" required></textarea>
+    <button type="submit">Submit Application</button>
+</form>
+
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let form = this;
+        let formData = new FormData(form);
+
+        fetch("send_email.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Response show karega
+            form.reset(); // Form fields ko empty karega
+        })
+        .catch(error => console.error("Error:", error));
+    });
+</script>
         </div>
     </div>
 
@@ -475,7 +505,7 @@
         <div class="contact-info">
             <div>
                 <i class="fas fa-envelope"></i><br>
-              innovativegermanacadmey@gmail.com
+                alyanhaider840@gmail.com
             </div>
             <div>
                 <i class="fas fa-map-marker-alt"></i><br>
@@ -486,7 +516,7 @@
                 +92 349 8660326
             </div>
         </div>
-        <p style="margin-top: 2rem;">© 2025 Innovative German Academy</p>
+        <p style="margin-top: 2rem;">© 2024 Innovative German Academy</p>
         <p style="margin-top: 1rem;">Goethe-Institut curriculum standards followed</p>
     </footer>
 
@@ -502,31 +532,10 @@
             coverflowEffect: {
                 rotate: 50,
                 stretch: 0
-<p style="margin-top: 1rem;">Goethe-Institut curriculum standards followed</p>
-    </footer>
+            }
+        </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function scrollToForm() {
-            document.getElementById('contact').scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-
-        function handleSubmit(e) {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'success',
-                title: 'Application Submitted!',
-                text: 'We will contact you within 24 hours',
-                confirmButtonColor: '#dd0000'
-            });
-            e.target.reset();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-    </script>
+    
 </body>
 </html>
